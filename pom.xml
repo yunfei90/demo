@@ -22,10 +22,28 @@
 
 
 	<repositories>
+
+		<repository>
+			<id>my-repo</id>
+			<url>http://115.236.5.250:8081/repository/maven-public/</url>
+		</repository>
+
 		<repository>
 			<id>maven-eclipse-repo</id>
 			<url>http://maven-eclipse.github.io/maven</url>
 		</repository>
+
+		<!-- 包含jface的第三方仓库 -->
+		<repository>
+			<id>Jabylon-Plugin---</id>
+			<url>http://www.jabylon.org/maven/</url>
+		</repository>
+
+		<repository>
+			<id>averbis</id>
+			<url>https://maven.averbis.com/m2/</url>
+		</repository>
+
 	</repositories>
 
 	<dependencies>
@@ -48,33 +66,80 @@
 
 
 		<!-- SWT 多平台依赖 -->
-		<!-- <dependency>
-			<groupId>org.eclipse.swt</groupId>
-			<artifactId>org.eclipse.swt.win32.win32.x86</artifactId>
-			<version>${swt.version}</version>
-			To use the debug jar, add this
-			<classifier>debug</classifier>
-		</dependency>
+		<!-- <dependency> <groupId>org.eclipse.swt</groupId> <artifactId>org.eclipse.swt.win32.win32.x86</artifactId> 
+			<version>${swt.version}</version> To use the debug jar, add this <classifier>debug</classifier> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.eclipse.swt</groupId>
 			<artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
 			<version>${swt.version}</version>
 		</dependency>
+		<!-- <dependency> <groupId>org.eclipse.swt</groupId> <artifactId>org.eclipse.swt.gtk.linux.x86</artifactId> 
+			<version>${swt.version}</version> </dependency> <dependency> <groupId>org.eclipse.swt</groupId> 
+			<artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId> <version>${swt.version}</version> 
+			</dependency> -->
+		<!-- <dependency> <groupId>org.eclipse.swt</groupId> <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId> 
+			<version>${swt.version}</version> </dependency> -->
+
 		<dependency>
-			<groupId>org.eclipse.swt</groupId>
-			<artifactId>org.eclipse.swt.gtk.linux.x86</artifactId>
-			<version>${swt.version}</version>
+			<groupId>org.eclipse</groupId>
+			<artifactId>e4xwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
+
 		<dependency>
-			<groupId>org.eclipse.swt</groupId>
-			<artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
-			<version>${swt.version}</version>
-		</dependency> -->
-		<dependency>
-			<groupId>org.eclipse.swt</groupId>
-			<artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
-			<version>${swt.version}</version>
+			<groupId>org.eclipse</groupId>
+			<artifactId>xwt-forms</artifactId>
+			<version>1.3.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>xwt-css</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>xwt-ui</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.pushingpixels</groupId>
+			<artifactId>trident</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jface</groupId>
+			<artifactId>databinding</artifactId>
+			<version> 1.6.200</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.e4.core</groupId>
+			<artifactId>contexts</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
+
+
+		<!-- 导入jface -->
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>jface</artifactId>
+			<version>3.9.1</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>64.2</version>
+		</dependency>
+
+
 
 	</dependencies>
 
