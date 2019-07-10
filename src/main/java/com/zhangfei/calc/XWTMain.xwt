@@ -1,0 +1,12 @@
+<Shell xmlns="http://www.eclipse.org/xwt/presentation"
+	xmlns:x="http://www.eclipse.org/xwt"
+	x:Class="com.zhangfei.calc.XWTMain" text="計算器">
+	<Shell.layout>
+		<GridLayout numColumns="4"></GridLayout>
+	</Shell.layout>
+
+	
+	<Button text="Double click me!" />
+	
+	
+</Shell>
