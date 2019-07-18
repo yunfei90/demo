@@ -47,8 +47,8 @@ public class CalcApplication {
 	private static void centerInDisplay(Shell shell) {
 		Rectangle displayArea = shell.getDisplay().getClientArea();
 
-		int width = 400;
-		int height = 400;
+		int width = 500;
+		int height = 500;
 
 		shell.setBounds(displayArea.width / 2 - width / 2, displayArea.height / 2 - height / 2, width, height);
 	}
