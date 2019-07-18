@@ -1,0 +1,149 @@
+<Shell xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" x:Class="com.zhangfei.calc.CalcApplication" text="计算器" background="SeaGreen">
+	<Shell.layout>
+		<GridLayout numColumns="4" makeColumnsEqualWidth="true"></GridLayout>
+	</Shell.layout>
+
+	<Text text="0" background="COLOR_WIDGET_HIGHLIGHT_SHADOW" x:Style="RIGHT" font="Arial,38" x:Name="resultText">
+		<Text.layoutData>
+			<GridData horizontalSpan="4" heightHint="55" grabExcessHorizontalSpace="true" horizontalAlignment="FILL" />
+		</Text.layoutData>
+	</Text>
+
+	<Label />
+	<Label />
+	<Button text="BS" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionControlButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+	<Button text="AC" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionControlButton">
+		<Button.layoutData>
+			<GridData heightHint="45" horizontalAlignment="FILL" />
+		</Button.layoutData>
+	</Button>
+
+	<!-- 一元运算符 -->
+	<Button text="+/-" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onClickUnayOperator">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+	
+	<!-- 倒数运算 -->
+	<Button text="1/x" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onClickUnayOperator">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	
+	<Button text="%" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onClickBinaryOperator" toolTipText="取余">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	
+
+	<Button text="+" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onClickBinaryOperator">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="7" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="8" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+	<Button text="9" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="-" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onClickBinaryOperator">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+
+	<Button text="4" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="5" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="6" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+
+
+	<Button text="×" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onClickBinaryOperator">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+
+
+	<Button text="1" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="2" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="3" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+
+	<Button text="÷" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onClickBinaryOperator">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="0" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalSpan="2" horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="." x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onSelectionNumberButton">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+	<Button text="=" x:Style="FLAT | CENTER" font="Arial,18" SelectionEvent="onClickEq">
+		<Button.layoutData>
+			<GridData horizontalAlignment="FILL" heightHint="45" />
+		</Button.layoutData>
+	</Button>
+
+</Shell>

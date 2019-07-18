@@ -1,153 +1,251 @@
 package com.zhangfei.calc;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
+import java.net.URL;
+
+import org.eclipse.e4.xwt.IConstants;
+import org.eclipse.e4.xwt.XWT;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
-
-import java.math.BigDecimal;
-
-import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Label;
+
+import com.zhangfei.calc.operator.IOperator;
+import com.zhangfei.calc.operator.Operators;
+import com.zhangfei.calc.util.NumberUtils;
 
 public class CalcApplication {
 
-	protected Shell shell;
-	private Text text;
-	private Button btn7;
-	private Button btn8;
-	private Button btn9;
-	private Button btn4;
-	private Button btn5;
-	private Button btn6;
-	private Button btn1;
-	private Button btn2;
-	private Button btn3;
-	private Button btn0;
-	private Button btnDota;
-	private Button btnPlus;
-	private Button btnSub;
-	private Button btnX;
-	private Button btnDivide;
+	public static final int MAX_CHAR = 18;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			CalcApplication window = new CalcApplication();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	//是否处理输入模式
+	private boolean inputMode = false;
 
-	/**
-	 * Open the window.
-	 */
-	public void open() {
-		Display display = Display.getDefault();
-		createContents();
-		shell.open();
+	//当前操作符
+	private IOperator operator = null;
+
+	public static void main(String args[]) throws Exception {
+
+		URL url = CalcApplication.class.getClassLoader()
+				.getResource("ui/" + CalcApplication.class.getSimpleName() + IConstants.XWT_EXTENSION_SUFFIX);
+		
+		Control control = (Control) XWT.load(url);
+
+		Shell shell = control.getShell();
 		shell.layout();
+		centerInDisplay(shell);
+
+		// run events loop
+		shell.open();
 		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
-			}
+			if (!shell.getDisplay().readAndDispatch())
+				shell.getDisplay().sleep();
 		}
 	}
 
+	private static void centerInDisplay(Shell shell) {
+		Rectangle displayArea = shell.getDisplay().getClientArea();
+
+		int width = 400;
+		int height = 400;
+
+		shell.setBounds(displayArea.width / 2 - width / 2, displayArea.height / 2 - height / 2, width, height);
+	}
+
+	//查找输出文本框
+	public Text findOutputText(Shell shell) {
+
+		return (Text) XWT.findElementByName(shell, "resultText");
+
+	}
+
 	/**
-	 * Create contents of the window.
+	 * 一元运算符事件处理
+	 * 
+	 * @param event
 	 */
-	protected void createContents() {
-		shell = new Shell();
-		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		shell.setSize(542, 467);
-		shell.setText("計算器");
-		shell.setLayout(new GridLayout(4, false));
+	public void onClickUnayOperator(Event event) {
+
+		Shell shell = event.display.getActiveShell();
+
+		Text output = findOutputText(shell);
+		Button button = (Button) event.widget;
+
+		String cmd = button.getText();
+
+		switch (cmd) {
+
+		case "+/-": // 更改符号
+			doCmdChangeSymbol(output);
+			break;
+
+		case "1/x": // 倒数
+			doCmdReciprocal(output);
+
+		}
+
+		output.setSelection(output.getText().length());
+
+	}
+
+	// 倒数运算
+	private void doCmdReciprocal(Text output) {
+
+		double leftExp = Double.valueOf(output.getText());
+
+		if (leftExp == 0) {// 除数为0
+			return;
+		}
+
+		Double result = 1.0d / leftExp;
+
+		output.setText(NumberUtils.double2String(result));
+
+		inputMode = false;
+
+	}
+
+	//控制按键
+	public void onSelectionControlButton(Event event) {
+
+		Shell shell = event.display.getActiveShell();
+		Text output = findOutputText(shell);
+
+		Button button = (Button) event.widget;
+
+		String cmd = button.getText();
+
+		switch (cmd) {
+
+		case "BS":
+
+			doCmdBS(output);
+			break;
+		case "AC":
+
+			doCmdAC(output);
+			break;
+		case "+/-":
+
+			doCmdChangeSymbol(output);
+
+		}
+
+		output.setSelection(output.getText().length());
+
+	}
+
+	//更改符号
+	private void doCmdChangeSymbol(Text output) {
+
+		String result = output.getText();
+
+		if (result.equals("0"))
+			return;
+
+		if (result.startsWith("-")) {
+			output.setText(result.substring(1));
+		} else {
+			output.setText("-" + result);
+		}
+
+	}
+
+	//清除输出
+	private void doCmdAC(Text output) {
+
+		output.setText("0");
 		
-		
-		text = new Text(shell, SWT.BORDER);
-		
-		GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, true, false);
-		gridData.widthHint = 50;
-		gridData.heightHint = 50;
-		gridData.horizontalSpan = 4;
-		text.setLayoutData(gridData);
-		
-		
-		//text.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 4, 1));
-		
-		Button btnAC = new Button(shell, SWT.FLAT);
-		btnAC.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
+		this.inputMode = false;
+		this.operator = null;
+
+	}
+
+	//退格
+	private void doCmdBS(Text output) {
+
+		if (inputMode == true) {
+
+			String removed = output.getText(0, output.getText().length() - 2);
+			if (removed == null || removed.isEmpty()) {
+				output.setText("0");
+				inputMode = false;
+			} else {
+
+				output.setText(removed);
+
 			}
-		});
-		btnAC.setText("C");
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
+		}
+
+	}
+
+	/**
+	 * 二元运算符处理
+	 * 
+	 * @param event
+	 */
+	public void onClickBinaryOperator(Event event) {
+
+		Shell shell = event.display.getActiveShell();
+		Text output = findOutputText(shell);
+		Button button = (Button) event.widget;
+		String cmd = button.getText();
+
+		if (operator != null) {	//前步计算没有做等号操作， 先做等号操作
+			onClickEq(event);
+		}
+
+		String input = output.getText();
+		 
+		Double leftValue = null;	leftValue = Double.valueOf(input);
+
+		this.operator = Operators.create(cmd, leftValue);
+		output.setText(NumberUtils.double2String(leftValue));
+
+		this.inputMode = false;
+		output.setSelection(output.getText().length());
+
+	}
+	
+	//等号事件
+	public void onClickEq(Event event) {
 		
-		btn7 = new Button(shell, SWT.FLAT);
-		btn7.setText("7");
+		Shell shell = event.display.getActiveShell();
+		Text output = findOutputText(shell);
+		String input = output.getText();
+
+		if (operator!=null) {
+			double result = operator.calc(input);
+			output.setText(NumberUtils.double2String(result));
+			operator = null;
+		}
 		
-		btn8 = new Button(shell, SWT.FLAT);
-		btn8.setText("8");
+		this.inputMode = false;
+		output.setSelection(output.getText().length());
 		
-		btn9 = new Button(shell, SWT.FLAT);
-		btn9.setText("9");
-		
-		btnPlus = new Button(shell, SWT.FLAT);
-		btnPlus.setText("+");
-		
-		btn4 = new Button(shell, SWT.FLAT);
-		btn4.setText("4");
-		
-		btn5 = new Button(shell, SWT.FLAT);
-		btn5.setText("5");
-		
-		btn6 = new Button(shell, SWT.FLAT);
-		btn6.setText("6");
-		
-		btnSub = new Button(shell, SWT.FLAT);
-		btnSub.setText("-");
-		
-		btn1 = new Button(shell, SWT.FLAT);
-		btn1.setText("1");
-		
-		btn2 = new Button(shell, SWT.FLAT);
-		btn2.setText("2");
-		
-		btn3 = new Button(shell, SWT.FLAT);
-		btn3.setText("3");
-		
-		btnX = new Button(shell, SWT.FLAT);
-		btnX.setText("×");
-		
-		btn0 = new Button(shell, SWT.FLAT);
-		btn0.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
-		btn0.setText("0");
-		
-		btnDota = new Button(shell, SWT.FLAT);
-		btnDota.setText(".");
-		
-		btnDivide = new Button(shell, SWT.FLAT);
-		btnDivide.setText("÷");
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
+	}
+
+	//数字输入
+	public void onSelectionNumberButton(Event event) {
+
+		Shell shell = event.display.getActiveShell();
+
+		Text output = findOutputText(shell);
+
+		Button button = (Button) event.widget;
+
+		if (inputMode == false) {
+
+			output.setText(button.getText());
+			inputMode = true;
+
+		} else {
+
+			output.append(button.getText());
+		}
+
+		output.setSelection(output.getText().length());
 
 	}
 }
